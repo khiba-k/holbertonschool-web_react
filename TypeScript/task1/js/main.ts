@@ -4,55 +4,56 @@ interface Teacher {
   fullTimeEmployee: boolean;
   yearsOfExperience?: number;
   location: string;
-  [propName: string]: any;
+  [key: string]: any;
 }
 
 interface Directors extends Teacher {
   numberOfReports: number;
 }
 
-const teacher3: Teacher = {
-  firstName: "Maria",
-  fullTimeEmployee: true,
-  lastName: "Montessori",
-  location: "Italy",
-  contract: true,
-};
-
-const director1: Directors = {
-  firstName: "John",
-  lastName: "Dewey",
-  fullTimeEmployee: true,
-  location: "Vermont",
-  numberOfReports: 5,
-};
-
-console.log(teacher3);
-console.log(director1);
-
 interface printTeacherFunction {
   (firstName: string, lastName: string): string;
 }
 
-const printTeacher: printTeacherFunction = function (
-  firstName: string,
-  lastName: string
-): string {
-  return `${firstName.charAt(0)}. ${lastName}`;
-};
-
-console.log(printTeacher("Maria", "Montessori"));
-
-interface StudentConstructor {
-  new (firstName: string, lastName: string): StudentInterface;
+interface StudentClassConstructor {
+  new (firstName: string, lastName: string): StudentClass;
 }
 
-interface StudentInterface {
+interface StudentClass {
+  firstName: string;
+  lastName: string;
   workOnHomework(): string;
   displayName(): string;
 }
 
-class StudentClass implements StudentInterface {
+const teacher: Teacher = {
+  firstName: "Maria",
+  lastName: "Montessori",
+  fullTimeEmployee: true,
+  location: "Italy",
+  contract: true,
+  subject: "Mathematics",
+};
+console.log(teacher);
+
+const director: Directors = {
+  firstName: "John",
+  lastName: "Dewey",
+  fullTimeEmployee: false,
+  location: "USA",
+  numberOfReports: 10,
+};
+
+console.log(director);
+
+const printTeacher: printTeacherFunction = (firstName, lastName) => {
+  return `${firstName[0]}. ${lastName}`;
+};
+
+const teacher1 = printTeacher("Rudolf", "Steiner");
+console.log(teacher1);
+
+class Student implements StudentClass {
   firstName: string;
   lastName: string;
 
@@ -70,6 +71,6 @@ class StudentClass implements StudentInterface {
   }
 }
 
-const student = new StudentClass("Maria", "Montessori");
-console.log(student.displayName());
-console.log(student.workOnHomework());
+const student1 = new Student("Khiba", "Koenane");
+console.log(student1.displayName());
+console.log(student1.workOnHomework());
