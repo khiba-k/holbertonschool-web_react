@@ -14,13 +14,18 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(gif|png|jpg|jpeg|svg)$/i,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
-          "file-loader",
+          {
+            loader: "file-loader",
+          },
           {
             loader: "image-webpack-loader",
             options: {
-              bypassOnDebug: true,
+              mozjpeg: {
+                progressive: true,
+                quality: 65,
+              },
             },
           },
         ],
