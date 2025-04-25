@@ -1,0 +1,25 @@
+.App-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #e1003c;
+  font-weight: bolder;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+.App-header img {
+  width: 140px;
+  height: 140px;
+}
+
+.App-body {
+  border-bottom: 2px solid #e1003c;
+  border-top: 2px solid #e1003c;
+  height: 680px;
+}
+
+.App-footer {
+  display: flex;
+  justify-content: center;
+}
