@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-it("Should render h1 element with the text 'School Dashboard' ", () => {
+it("Should render h1 element with the text 'School Dashboard'", () => {
   // Render App component
   render(<App />);
 
@@ -12,7 +12,7 @@ it("Should render h1 element with the text 'School Dashboard' ", () => {
   expect(h1Element.textContent).toEqual("School Dashboard");
 });
 
-it("Renders p tags with correct text ", () => {
+it("Renders p tags with correct text", () => {
   // Render App component
   render(<App />);
 
@@ -28,7 +28,7 @@ it("Renders p tags with correct text ", () => {
   );
 });
 
-it("Renders image ", () => {
+it("Renders image", () => {
   // Render App component
   render(<App />);
 
