@@ -9,6 +9,7 @@
 .App-header h1 {
   display: flex;
   font-weight: bold;
+  color: #e1003c;
 }
 
 .App-header img {
@@ -19,8 +20,8 @@
 .App-body {
   display: flex;
   height: 63vh;
-  justify-content: flex-start;
   padding: 0.5rem;
+  flex-direction: column;
 }
 
 .App-footer {
