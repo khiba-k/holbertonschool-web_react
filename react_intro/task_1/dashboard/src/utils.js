@@ -1,9 +1,9 @@
-const getCurrentYear = () => {
+function getCurrentYear() {
   return "2025";
-};
+}
 
-const getFooterCopy = (isIndex) => {
+function getFooterCopy(isIndex) {
   return isIndex ? "Holberton School" : "Holberton School main dashboard";
-};
+}
 
 export { getCurrentYear, getFooterCopy };
