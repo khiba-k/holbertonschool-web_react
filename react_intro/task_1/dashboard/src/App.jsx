@@ -18,15 +18,13 @@ function App() {
           Login to access the full dashboard
         </p>
 
-        <div className="login-form">
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" />
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" name="email" />
 
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" />
+        <label htmlFor="password">Password:</label>
+        <input type="password" id="password" name="password" />
 
-          <button>OK</button>
-        </div>
+        <button>OK</button>
       </div>
       <div className="App-footer">
         <p>
