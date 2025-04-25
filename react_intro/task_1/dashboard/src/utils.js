@@ -1,5 +1,6 @@
 function getCurrentYear() {
-  return "2025";
+  const date = new Date();
+  return date.getFullYear();
 }
 
 function getFooterCopy(isIndex) {
