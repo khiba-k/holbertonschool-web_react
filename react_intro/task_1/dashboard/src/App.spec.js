@@ -1,40 +1,24 @@
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-it("Should render h1 element with the text 'School Dashboard'", () => {
-  // Render App component
+test('h1 element with the text School Dashboard is rendered', () => {
   render(<App />);
-
-  // Fetch h1 tag
-  const h1Element = screen.getByRole("heading");
-
-  // Assert h1 text
-  expect(h1Element.textContent).toEqual("School Dashboard");
+  const heading = screen.getByRole('heading', { name: /School Dashboard/i });
+  expect(heading).toBeInTheDocument();
 });
 
-it("Renders p tags with correct text", () => {
-  // Render App component
+test('the text content within the 2 p elements in the app-body and app-footer divs matches', () => {
   render(<App />);
+  const divbody = screen.getByText(/Login to access the full dashboard/i);
+  const divfooter = screen.getByText(/Copyright 2025 - holberton School/i);
 
-  // Fetch h1 tag
-  const paragraphs = screen.getAllByRole("paragraph");
-
-  // Assert p texts
-  expect(paragraphs[0].textContent).toEqual(
-    "Login to access the full dashboard"
-  );
-  expect(paragraphs[1].textContent).toEqual(
-    "Copyright 2025 - holberton School"
-  );
+  expect(divbody).toBeInTheDocument();
+  expect(divfooter).toBeInTheDocument();
 });
 
-it("Renders image", () => {
-  // Render App component
+test('an img element is rendered', () => {
   render(<App />);
-
-  // Fetch image by alt text
-  const image = screen.getByAltText("holberton logo");
-
-  // Assert alt text
+  const image = screen.getByAltText(/holberton logo/i);
   expect(image).toBeInTheDocument();
 });
+
