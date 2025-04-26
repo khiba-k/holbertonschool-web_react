@@ -9,7 +9,7 @@ describe("Utils functions", () => {
     };
 
     // Assert functions return value
-    expect(getCurrentYear()).toEqual(currentYear());
+    expect(getCurrentYear()).toBe(currentYear());
   });
 
   it("getFooterCopy() returns correct string depending on arg", () => {
@@ -17,8 +17,8 @@ describe("Utils functions", () => {
     const isNotFooterCopy = "Holberton School main dashboard";
 
     // Assert functions return value
-    expect(getFooterCopy(true)).toEqual(isFooterCopy);
-    expect(getFooterCopy(false)).toEqual(isNotFooterCopy);
+    expect(getFooterCopy(true)).toBe(isFooterCopy);
+    expect(getFooterCopy(false)).toBe(isNotFooterCopy);
   });
 
   it("getLatestNotification() returns correct string", () => {
@@ -26,6 +26,6 @@ describe("Utils functions", () => {
       "<strong>Urgent requirement</strong> - complete by EOD";
 
     // Assert functions return value
-    expect(getLatestNotification()).toEqual(notifyString);
+    expect(getLatestNotification()).toBe(notifyString);
   });
 });
