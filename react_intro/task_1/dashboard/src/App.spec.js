@@ -30,5 +30,12 @@ test("renders two input elements", () => {
   const inputElements = screen.getAllByRole("textbox");
   const inputLength = inputElements.length;
 
+  // Get labels
+  const email = screen.getByLabelText(/Email/i);
+  const password = screen.getByLabelText(/Password/i);
+
+  // Assert elements
   expect(inputLength).toEqual(1);
+  expect(email).toBeInTheDocument();
+  expect(password).toBeInTheDocument();
 });
