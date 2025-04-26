@@ -4,33 +4,27 @@ describe("Utils functions", () => {
   test("getCurrentYear() returns correct year", () => {
     // Expected year
     const currentYear = () => {
-      const date = new Date();
-      return date.getFullYear();
+      return new Date().getFullYear();
     };
 
     // Assert functions return value
     expect(getCurrentYear()).toBe(currentYear());
   });
 
-  test("getFooterCopy() returns correct string when arg is true", () => {
-    const returnString = "Holberton School main dashboard";
-
+  test("getFooterCopy() returns correct string when arg is false", () => {
     // Assert functions return value
-    expect(getFooterCopy(false)).toBe(returnString);
+    expect(getFooterCopy(true)).toBe("Holberton School");
   });
 
-  test("getFooterCopy() returns correct string when arg is false", () => {
-    const returnString = "Holberton School";
-
+  test("getFooterCopy() returns correct string when arg is true", () => {
     // Assert functions return value
-    expect(getFooterCopy(true)).toBe(returnString);
+    expect(getFooterCopy(false)).toBe("Holberton School main dashboard");
   });
 
   test("getLatestNotification() returns correct string", () => {
-    const notifyString =
-      "<strong>Urgent requirement</strong> - complete by EOD";
-
     // Assert functions return value
-    expect(getLatestNotification()).toBe(notifyString);
+    expect(getLatestNotification()).toBe(
+      "<strong>Urgent requirement</strong> - complete by EOD"
+    );
   });
 });
