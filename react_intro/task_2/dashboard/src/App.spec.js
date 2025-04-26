@@ -30,16 +30,30 @@ test("renders two input elements", () => {
   const inputElements = screen.getAllByRole("textbox");
   const inputLength = inputElements.length;
 
+  // Assert element
+  expect(inputLength).toEqual(1);
+});
+
+test("renders two label elements with text 'email' & 'password'", () => {
+  // Render component
+  render(<App />);
+
   // Get labels
   const email = screen.getByLabelText(/Email/i);
   const password = screen.getByLabelText(/Password/i);
 
+  // Assert elements and values
+  expect(email).toBeInTheDocument();
+  expect(password).toBeInTheDocument();
+});
+
+test("renders two label elements with text 'emai' & 'password'", () => {
+  // Render component
+  render(<App />);
+
   //Get button
   const submitButton = screen.getByRole("button");
 
-  // Assert elements
-  expect(inputLength).toEqual(1);
-  expect(email).toBeInTheDocument();
-  expect(password).toBeInTheDocument();
+  // Assert text content of button
   expect(submitButton.textContent).toBe("OK");
 });
