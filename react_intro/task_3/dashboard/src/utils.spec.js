@@ -12,13 +12,18 @@ describe("Utils functions", () => {
     expect(getCurrentYear()).toBe(currentYear());
   });
 
-  it("getFooterCopy() returns correct string depending on arg", () => {
-    const isFooterCopy = "Holberton School";
-    const isNotFooterCopy = "Holberton School main dashboard";
+  it("getFooterCopy() returns correct string when arg is true", () => {
+    const returnString = "Holberton School main dashboard";
 
     // Assert functions return value
-    expect(getFooterCopy(true)).toBe(isFooterCopy);
-    expect(getFooterCopy(false)).toBe(isNotFooterCopy);
+    expect(getFooterCopy(false)).toBe(returnString);
+  });
+
+  it("getFooterCopy() returns correct string when arg is false", () => {
+    const returnString = "Holberton School";
+
+    // Assert functions return value
+    expect(getFooterCopy(true)).toBe(returnString);
   });
 
   it("getLatestNotification() returns correct string", () => {
