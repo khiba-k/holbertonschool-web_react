@@ -14,12 +14,12 @@
 
 .App-header img {
   display: flex;
-  width: 150px;
+  width: 100px;
 }
 
 .App-body {
   display: flex;
-  height: 63vh;
+  height: 65vh;
   padding: 0.5rem;
   flex-direction: column;
 }
