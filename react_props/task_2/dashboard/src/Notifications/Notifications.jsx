@@ -9,9 +9,9 @@ export default function Notifications({ notificationsArray }) {
       <div>
         <p>Here is the list of notifications</p>
         <ul>
-          {notificationsArray.map(notification => {
+          {(notificationsArray || []).map(notification => {
             return (
-              <NotificationItem id={notification.id} type={notification.type} html={notification.html} value={notification.value} />
+              <NotificationItem key={notification.id} type={notification.type} html={notification.html} value={notification.value} />
             )
           })}
         </ul>

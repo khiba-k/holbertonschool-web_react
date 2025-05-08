@@ -18,9 +18,9 @@
 }
 
 li {
-  color: #e1003c;
+  color: red;
 }
-
+/* 
 li:first-child {
   color: blue;
-}
+} */

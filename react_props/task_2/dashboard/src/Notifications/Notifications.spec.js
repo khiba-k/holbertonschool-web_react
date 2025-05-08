@@ -2,11 +2,21 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import Notifications from "./Notifications";
 
 describe("Notification Component", () => {
+  const notificationsList = [
+    { id: 1, type: "default", value: "New course available" },
+    { id: 2, type: "urgent", value: "New resume available" },
+    {
+      id: 3,
+      type: "urgent",
+      html: { __html: "<strong>Urgent requirement</strong> - complete by EOD" },
+    },
+  ];
+
   beforeEach(() => {
-    render(<Notifications />);
+    render(<Notifications notificationsArray={notificationsList} />);
   });
 
-  test.skip("Has title", () => {
+  test("Has title", () => {
     // Get tile
     const titleElement = screen.getByText(/Here is the list of notifications/i);
 
@@ -14,7 +24,7 @@ describe("Notification Component", () => {
     expect(titleElement).toBeInTheDocument();
   });
 
-  test.skip("Contains button", () => {
+  test("Contains button", () => {
     // Get tile
     const buttonElement = screen.getByRole("button");
 
@@ -22,7 +32,7 @@ describe("Notification Component", () => {
     expect(buttonElement).toBeInTheDocument();
   });
 
-  test.skip("Contains 3 li elements", () => {
+  test("Contains 3 li elements", () => {
     // Get tile
     const listElements = screen.getAllByRole("listitem");
 
@@ -44,7 +54,7 @@ describe("Notification Component", () => {
     const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
 
     // Render component
-    render(<Notifications />);
+    render(<Notifications notificationsArray={notificationsList} />);
 
     // Simulate click
     fireEvent.click(screen.getByRole("button", { name: /Close/i }));
