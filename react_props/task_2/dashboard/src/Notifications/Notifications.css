@@ -1,23 +1,26 @@
-.Notifications {
-  border: 3px dashed var(--primary-color);
-  padding: 20px;
-  padding: 10px;
-  margin-bottom: 20px;
+.notifications {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: flex-start;
+  border-style: dotted;
+  border-color: #e1003c;
+  padding: 2px;
+  font-size: 12px;
 }
 
-.Notifications button img {
-  width: 10px;
+.notifications P {
+  padding: 0 0 0 1rem;
 }
 
-.Notifications p {
-  margin: 0;
-  margin-top: 15px;
+.notifications img {
+  width: 20px;
+  height: 20px;
 }
 
-[data-notification-type='default'] {
+li {
+  color: #e1003c;
+}
+
+li:first-child {
   color: blue;
-}
-
-[data-notification-type='urgent'] {
-  color: red;
 }
