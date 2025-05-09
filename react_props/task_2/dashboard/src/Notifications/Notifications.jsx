@@ -3,13 +3,13 @@ import closeIcon from "../assets/close-button.png";
 import NotificationItem from './NotificationItem';
 import './Notifications.css';
 
-export default function Notifications({ notificationsArray }) {
+export default function Notifications({ notifications = [] }) {
   return (
     <div className="notifications">
       <div>
         <p>Here is the list of notifications</p>
         <ul>
-          {(notificationsArray || []).map(notification => {
+          {(notifications).map(notification => {
             return (
               <NotificationItem key={notification.id} type={notification.type} html={notification.html} value={notification.value} />
             )

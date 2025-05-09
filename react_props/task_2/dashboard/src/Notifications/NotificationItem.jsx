@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NotificationItem = ({ type, html, value }) => {
-    const style = type === "default" ? { color: "blue" } : {};
+    const style = type === "default" ? { color: "blue" } : { color: "red" };
 
     if (value) {
         return (

@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       <div className='root-notifications'>
-        <Notifications notificationsArray={notificationsList} />
+        <Notifications notifications={notificationsList} />
       </div>
       <Header />
       <Login />

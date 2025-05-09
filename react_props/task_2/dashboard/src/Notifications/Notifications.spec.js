@@ -13,7 +13,7 @@ describe("Notification Component", () => {
   ];
 
   beforeEach(() => {
-    render(<Notifications notificationsArray={notificationsList} />);
+    render(<Notifications notifications={notificationsList} />);
   });
 
   test("Has title", () => {
