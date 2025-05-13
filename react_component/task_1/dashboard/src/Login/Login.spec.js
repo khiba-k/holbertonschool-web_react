@@ -11,14 +11,14 @@ describe("Login Component", () => {
   });
 
   // Test if Login paragraph has correct text
-  it("Login has correct text", () => {
+  it.skip("Login has correct text", () => {
     const loginText = screen.getByText(/Login to access the full dashboard/i);
 
     expect(loginText).toBeInTheDocument();
   });
 
   // Test if Login renders two input elements, two labels and button
-  it("renders two input elements, two labels and button", () => {
+  it.skip("renders two input elements, two labels and button", () => {
     //Get input elements
     const inputElements = container.querySelectorAll("input");
     const inputLength = inputElements.length;

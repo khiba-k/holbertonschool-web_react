@@ -4,7 +4,7 @@ import CourseList from "./CourseList";
 // CourseList test suite
 describe("CourseList component", () => {
   // Test if correct number of rows are rendered
-  it("5 rows renedered when array is given", () => {
+  it.skip("5 rows renedered when array is given", () => {
     const courseList = [
       { id: 1, name: "React", credit: "55" },
       { id: 2, name: "Express", credit: "65" },

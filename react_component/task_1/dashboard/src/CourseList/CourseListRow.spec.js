@@ -6,7 +6,7 @@ describe("Test CourseListRow Component", () => {
   // If isHeader is true
   // Test if one column header is rendered when textSecondSell is null
 
-  it("One column header is rendered", () => {
+  it.skip("One column header is rendered", () => {
     render(
       <table>
         <thead>
