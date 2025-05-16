@@ -32,7 +32,7 @@ class Notifications extends Component {
   }
 
   markAsRead(id) {
-    console.log(`Notification {${id}} has been marked as read`)
+    console.log(`Notification ${id} has been marked as read`)
   }
 
   render() {

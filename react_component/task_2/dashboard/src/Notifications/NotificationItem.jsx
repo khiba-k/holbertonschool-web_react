@@ -28,13 +28,13 @@ class NotificationItem extends Component {
     render() {
         if (this.props.value) {
             return (
-                <li style={this.style} data-notification-type={this.props.type} onClick={() => { this.props.markAsRead(this.props.id); }}>
+                <li style={this.style} data-notification-type={this.props.type} onClick={() => { this.props.markAsRead(this.props.id) }} data-testid={`item${this.props.id}`}>
                     {this.props.value}
                 </li>
             );
         } else if (this.props.html) {
             return (
-                <li style={this.style} data-notification-type={this.props.type} dangerouslySetInnerHTML={this.props.html} onClick={() => { this.props.markAsRead(this.props.id); }} ></li>
+                <li style={this.style} data-notification-type={this.props.type} dangerouslySetInnerHTML={this.props.html} onClick={() => { this.props.markAsRead(this.props.id); }} data-testid={`item${this.props.id}`}></li>
             );
         }
 

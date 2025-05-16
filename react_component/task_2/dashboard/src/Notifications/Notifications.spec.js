@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import Notifications from "./Notifications";
 
 describe("Notification Component", () => {
@@ -102,4 +103,25 @@ describe("Notification Component", () => {
     // Assert if noNotifications text is present
     expect(noNotifications).toBeInTheDocument();
   });
+
+  // Test if click on Notification Item logs message
+  it(("Click on item logs message"), async () => { 
+    cleanup();
+    
+    // Spy on console.log
+    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+
+    // Render Notification component
+    render(<Notifications notifications={notificationsList} displayDrawer={true}/>)
+    
+    // Get li item number 2
+    const liTwo = screen.getByTestId('item2');
+    
+    // Simulate click on on item with id "2"
+    await userEvent.click(liTwo);
+
+    // Assert that console log gets called with correct message
+    expect(consoleLogSpy).toBeCalledWith("Notification 2 has been marked as read")
+  });
+
 });
