@@ -1,10 +1,10 @@
 import React from 'react';
 import BodySection from './BodySection';
 
-const BodySectionWithMarginBottom = ({ children }) => {
+const BodySectionWithMarginBottom = ({ children, title }) => {
     return (
         <div className='bodySectionWithMargin'>
-            <BodySection title={"Hello, Khiba"} >{children}</BodySection>
+            <BodySection title={title} >{children}</BodySection>
         </div>
     )
 }

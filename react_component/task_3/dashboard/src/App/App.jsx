@@ -1,4 +1,6 @@
 import { Component } from 'react'
+import BodySection from '../BodySection/BodySection'
+import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom"
 import CourseList from '../CourseList/CourseList'
 import '../CourseList/CourseList.css'
 import Footer from '../Footer/Footer'
@@ -92,11 +94,20 @@ class App extends Component {
         </div>
         {isLoggedIn ? (
           <div className="courses-body">
-            <CourseList courses={this.coursesList} />
+            <BodySectionWithMarginBottom title={"Course List"}>
+              <CourseList courses={this.coursesList} />
+            </BodySectionWithMarginBottom>
           </div>
         ) : (
-          <Login />
+          <BodySectionWithMarginBottom title={"Log in to continue"}>
+            <Login />
+          </BodySectionWithMarginBottom>
         )}
+        <div>
+          <BodySection title={"News from the School"}>
+            <p>Holberton School News goes here</p>
+          </BodySection>
+        </div>
         <Footer />
       </>
     );
