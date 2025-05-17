@@ -20,29 +20,18 @@ describe("Notification Component", () => {
   });
 
   test("Has title", () => {
-    // Get tile
     const titleElement = screen.getByText(/Here is the list of notifications/i);
-
-    //assert existance of title
     expect(titleElement).toBeInTheDocument();
   });
 
   test("Contains button", () => {
-    // Get tile
     const buttonElement = screen.getByRole("button");
-
-    //assert existance of button
     expect(buttonElement).toBeInTheDocument();
   });
 
   test("Contains 3 li elements", () => {
-    // Get tile
     const listElements = screen.getAllByRole("listitem");
-
-    //assert number of li elements
     expect(listElements.length).toBe(3);
-
-    //assert values of li elements
     expect(listElements[0].textContent).toMatch(/New course available/i);
     expect(listElements[1].textContent).toMatch(/New resume available/i);
     expect(listElements[2].textContent).toMatch(
@@ -52,76 +41,83 @@ describe("Notification Component", () => {
 
   test("Close button logs message", () => {
     cleanup();
-
-    // Spy on console.log
     const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
-
-    // Render component
     render(
       <Notifications
         displayDrawer={true}
         notificationsArray={notificationsList}
       />
     );
-
-    // Simulate click
     fireEvent.click(screen.getByRole("button", { name: /Close/i }));
-
-    //assert message logged when button is clicked
     expect(logSpy).toHaveBeenCalledWith("Close button has been clicked");
-
-    // Clean up
     logSpy.mockRestore();
   });
 
-  // Test if some elements are not displayed when displayDrawer is false
   it("Elements not displayed when displayDrawer is false", () => {
     cleanup();
-
-    // Render Notifications component
     render(<Notifications notifications={notificationsList} />);
-
-    // Get p element(s)
     const textElement = screen.queryByRole("paragraph");
     const buttonElement = screen.queryByRole("button");
-
-    // Assert if there are no p graphs in the component
     expect(textElement).not.toBeInTheDocument();
     expect(buttonElement).not.toBeInTheDocument();
   });
 
-  // Test when displayDrawer is true and notifications list is empty
   it("Notifications list is empty", () => {
     cleanup();
-
-    // Render Notifications component
     render(<Notifications displayDrawer={true} />);
-
-    // Get No new notifications text
     const noNotifications = screen.getByText(/No new notification for now/i);
-
-    // Assert if noNotifications text is present
     expect(noNotifications).toBeInTheDocument();
   });
 
-  // Test if click on Notification Item logs message
   it(("Click on item logs message"), async () => { 
     cleanup();
-    
-    // Spy on console.log
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-
-    // Render Notification component
     render(<Notifications notifications={notificationsList} displayDrawer={true}/>)
-    
-    // Get li item number 2
     const liTwo = screen.getByTestId('item2');
-    
-    // Simulate click on on item with id "2"
     await userEvent.click(liTwo);
-
-    // Assert that console log gets called with correct message
     expect(consoleLogSpy).toBeCalledWith("Notification 2 has been marked as read")
+  });
+
+  // ✅ ADDITIONAL TESTS
+
+  it("does not re-render if notifications length stays the same", () => {
+    cleanup();
+    const sameLengthList = [
+      { id: 10, type: "default", value: "One" },
+      { id: 20, type: "urgent", value: "Two" },
+      { id: 30, type: "urgent", value: "Three" }
+    ];
+    const renderSpy = jest.spyOn(Notifications.prototype, "render");
+
+    const { rerender } = render(
+      <Notifications notifications={notificationsList} displayDrawer={true} />
+    );
+
+    rerender(
+      <Notifications notifications={sameLengthList} displayDrawer={true} />
+    );
+
+    expect(renderSpy).toHaveBeenCalledTimes(1);
+    renderSpy.mockRestore();
+  });
+
+  it("re-renders when notifications length changes", () => {
+    cleanup();
+    const shorterList = [
+      { id: 1, type: "default", value: "Only one item" }
+    ];
+    const renderSpy = jest.spyOn(Notifications.prototype, "render");
+
+    const { rerender } = render(
+      <Notifications notifications={notificationsList} displayDrawer={true} />
+    );
+
+    rerender(
+      <Notifications notifications={shorterList} displayDrawer={true} />
+    );
+
+    expect(renderSpy).toHaveBeenCalledTimes(2);
+    renderSpy.mockRestore();
   });
 
 });
