@@ -1,5 +1,14 @@
 import { render, screen, within } from "@testing-library/react";
+import { StyleSheetTestUtils } from 'aphrodite';
 import CourseList from "./CourseList";
+
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 // CourseList test suite
 describe("CourseList component", () => {

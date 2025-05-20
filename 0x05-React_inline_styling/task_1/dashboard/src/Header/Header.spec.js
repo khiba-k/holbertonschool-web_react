@@ -1,5 +1,14 @@
 import { render, screen } from "@testing-library/react";
+import { StyleSheetTestUtils } from 'aphrodite';
 import Header from "./Header";
+
+beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+});
+  
+afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe("Header Component", () => {
   beforeEach(() => {

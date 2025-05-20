@@ -1,6 +1,15 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { StyleSheetTestUtils } from 'aphrodite';
 import App from "./App";
+
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 global.alert = jest.fn();
 
