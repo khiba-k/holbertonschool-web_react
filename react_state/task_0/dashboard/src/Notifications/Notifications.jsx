@@ -91,21 +91,24 @@ const styles = StyleSheet.create({
 });
 
 class Notifications extends Component {
-  shouldComponentUpdate(nextProps) {
-    return nextProps.notifications.length !== this.props.notifications.length;
-  }
 
   markAsRead = (id) => {
     console.log(`Notification ${id} has been marked as read`);
   };
 
-  render() {
-    const { notifications, displayDrawer } = this.props;
+  shouldComponentUpdate(nextProps) {
+    return (
+      nextProps.notifications.length !== this.props.notifications.length ||
+      nextProps.isDrawerDisplayed !== this.props.isDrawerDisplayed
+    );
+  }
 
+  render() {
+    const { notifications, isDrawerDisplayed, showDrawer, hideDrawer } = this.props;
     return (
       <>
-        <div className={css(styles.title)}>Your notifications</div>
-        {displayDrawer ? (
+        <div className={css(styles.title)} data-testid="displayBtn" onClick={() => { showDrawer() }}>Your notifications</div>
+        {isDrawerDisplayed ? (
           <div className={css(styles.notifications)}>
             <div className={css(styles.container)}>
               <p className={css(styles.paragraph)}>Here is the list of notifications</p>
@@ -128,7 +131,7 @@ class Notifications extends Component {
             </div>
             <button
               aria-label="Close"
-              onClick={() => console.log("Close button has been clicked")}
+              onClick={() => { hideDrawer() }}
               className={css(styles.closeButton)}
             >
               <img alt="Close Button" src={closeIcon} className={css(styles.closeIcon)} />
@@ -142,7 +145,6 @@ class Notifications extends Component {
 
 Notifications.defaultProps = {
   notifications: [],
-  displayDrawer: false,
 };
 
 export default Notifications;

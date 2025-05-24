@@ -70,6 +70,25 @@ class App extends Component {
 
     this.WithLogin = withLogging(Login);
     this.WithCourseLit = withLogging(CourseList);
+
+    this.state = {
+      displayDrawer: false
+    }
+
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
+  }
+
+  handleDisplayDrawer = () => {
+    this.setState({
+      displayDrawer: true
+    });
+  };
+
+  handleHideDrawer = () => {
+    this.setState({
+      displayDrawer: false
+    });
   }
 
   componentDidMount() {
@@ -88,7 +107,7 @@ class App extends Component {
         <div className={css(styles.notificationsHeader)}>
           <Header />
           <div className={css(styles.rootNotifications)}>
-            <Notifications notifications={this.notificationsList} />
+            <Notifications notifications={this.notificationsList} isDrawerDisplayed={this.state.displayDrawer} showDrawer={this.handleDisplayDrawer} hideDrawer={this.handleHideDrawer} />
           </div>
         </div>
         {isLoggedIn ? (
