@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import App from "../App/App";
 import Notifications from "./Notifications";
 
 describe("Notification Component", () => {
@@ -17,11 +16,10 @@ describe("Notification Component", () => {
   // Test if displayDrawer is called on Menu click
   it("Menu Click calls handleDisplayDrawer", async () => {
 
-
     // Spy on handleDisplayDrawer
-    const handleDisplaySpy = jest.spyOn(App.prototype, "handleDisplayDrawer") 
+    const handleDisplayMock = jest.fn() 
 
-    render(<Notifications notifications={notificationsList} isDrawerDisplayed={false}/>);
+    render(<Notifications notifications={notificationsList} isDrawerDisplayed={false} showDrawer={handleDisplayMock}/>);
 
     // Get Menu button
     const menuButton = screen.getByTestId(/displayBtn/i);
@@ -30,7 +28,25 @@ describe("Notification Component", () => {
     await userEvent.click(menuButton);
 
     // Assert if handleDisplay gets called
-    expect(handleDisplaySpy).toHaveBeenCalled();
+    expect(handleDisplayMock).toHaveBeenCalled();
+  })
+
+  // Test if displayDrawer is called on Menu click
+  it("Menu Click calls handleHideDrawer", async () => {
+
+    // Spy on handleHideDrawer
+    const handleHideMock = jest.fn() 
+
+    render(<Notifications notifications={notificationsList} isDrawerDisplayed={true} hideDrawer={handleHideMock}/>);
+
+    // Get Menu button
+    const hideButton = screen.getByTestId(/hideBtn/i);
+
+    // Simulate button click
+    await userEvent.click(hideButton);
+
+    // Assert if handleDisplay gets called
+    expect(handleHideMock).toHaveBeenCalled();
   })
 
 });
