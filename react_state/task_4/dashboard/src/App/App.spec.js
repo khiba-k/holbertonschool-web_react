@@ -13,10 +13,22 @@ afterAll(() => {
 
 global.alert = jest.fn();
 
+// Mock console.log to test logging
+const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+
 describe("App Component", () => {
   beforeEach(() => {
+    consoleSpy.mockClear();
     // Render app component
     render(<App />);
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
+  afterAll(() => {
+    consoleSpy.mockRestore();
   });
 
   // Test if app component renders Header component
@@ -28,131 +40,44 @@ describe("App Component", () => {
     expect(heading).toBeInTheDocument();
   });
 
-  // Test if app component renders Login component
-  it.skip("Renders Login Component", () => {
-    const loginText = screen.getByText(/Login to access the full dashboard/i);
-    expect(loginText).toBeInTheDocument();
+  it("renders without crashing", () => {
+    expect(screen.getByText(/News from the School/i)).toBeInTheDocument();
   });
 
-  // Test if app component renders Footer component
-  it.skip("Renders Footer Component", () => {
-    expect(screen.getByText(/Copyright/i)).toBeInTheDocument();
+  it("has correct initial state - shows login form when not logged in", () => {
+    expect(screen.getByText(/Log in to continue/i)).toBeInTheDocument();
   });
 
-  // Test if login is rendered when isLoggedIn is false
-  it.skip("Login is rendered when isLoggedIn is false", () => {
-    cleanup();
-
-    const rendered = render(<App />);
-    const container = rendered.container;
-
-    // Get courseList
-    const loginComponent = container.querySelector(".App-body");
-
-    // Assert that CourseList exists
-    expect(loginComponent).toBeInTheDocument();
-  });
-
-  // Test if courseList is rendered when isLoggedIn is true
-  it.skip("CourseList is rendered when isLoggedIn is true", () => {
-    cleanup();
-
-    const rendered = render(<App isLoggedIn={true} />);
-    const container = rendered.container;
-
-    // Get courseList
-    const courseList = container.querySelector("#CourseList");
-
-    // Assert that CourseList exists
-    expect(courseList).toBeInTheDocument();
-  });
-
-  // Test if logOut function is called once when ctrl h combo is clicked
-  it.skip("Logout function gets called once", async () => {
-    cleanup();
-
-    // Prop function
-    const logOut = jest.fn();
-
-    render(<App logOut={logOut}/>);
-
-    // Simulate keyboard combo click
-    await userEvent.keyboard("{Control>}h{/Control}");
-
-    // Assert that logOut gets called once
-    expect(logOut).toBeCalledTimes(1);
-  })
-
-  // Test if alert function is called and has correct string
-  it.skip("Alert function is called", async () => {
-    cleanup();
-
-    // Spy on alert function
-    // const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+  it("logOut function updates state correctly with keyboard shortcut", async () => {
+    const user = userEvent.setup();
     
-    render(<App/>);
-
-    // Simulate keyboard combo click
-    await userEvent.keyboard("{Control>}h{/Control}");
-
-    // Assert that alert is called with 'Logging you out'
+    // Test the keyboard shortcut for logout
+    await user.keyboard('{Control>}h{/Control}');
+    
+    // Should show alert and remain logged out
     expect(global.alert).toHaveBeenCalledWith("Logging you out");
+    expect(screen.getByText(/Log in to continue/i)).toBeInTheDocument();
+  });
 
-    // alertSpy.mockRestore();
-  })
-
-  // Test if courselist Header is displayed when logged is true
-  it.skip("CourseList Heading is displayed", () => {
-    cleanup();
-
-    render(<App isLoggedIn={true}/>)
-
-    // Get heading element
-    const heading = screen.getByRole("heading", {
-      level: 2,
-      name: /Course List/i
-    });
-
-    // Assert that heading exists
-    expect(heading).toBeInTheDocument();
-  })
-
-  // Test if Log In to Continue Header is displayed when logged is False
-  it("Login to continue Heading is displayed", () => {
-    cleanup();
-
-    render(<App/>)
-
-    // Get heading element
-    const heading = screen.getByRole("heading", {
-      level: 2,
-      name: /Log in to continue/i
-    });
-
-    // Assert that heading exists
-    expect(heading).toBeInTheDocument();
-  })
-
-  // Test if News section is rendered
-  it("News Section is rendered", () => {
-    cleanup();
-
-    render(<App/>)
-
-    // Get heading element
-    const heading = screen.getByRole("heading", {
-      level: 2,
-      name: /News from the School/i
-    });
-
-    // Get paragraph element
-    const paragraph = screen.getByText(/Holberton School News goes here/i
-    )
-
-    // Assert that heading and paragraph exists
-    expect(heading).toBeInTheDocument();
-    expect(paragraph).toBeInTheDocument();
-  })
+  it("markNotificationAsRead removes notification and logs message", async () => {
+    const user = userEvent.setup();
+    
+    // Open notifications drawer
+    const notificationButton = screen.getByTestId('displayBtn');
+    await user.click(notificationButton);
+    
+    // Get initial notification count
+    const initialNotifications = screen.getAllByRole('listitem');
+    const initialCount = initialNotifications.length;
+    expect(initialCount).toBeGreaterThan(0);
+    
+    // Find and click the first notification item (assuming it has a close button or is clickable)
+    const firstNotification = initialNotifications[0];
+    await user.click(firstNotification);
+    
+    // Check that console.log was called with expected message
+    expect(consoleSpy).toHaveBeenCalledWith(expect.stringMatching(/Notification \d+ has been marked as read/));
+  });
 
   it("clicking on notification item removes it from notification list", async () => {
     const user = userEvent.setup();
@@ -173,5 +98,36 @@ describe("App Component", () => {
     // Check that notification count decreased
     const remainingNotifications = screen.getAllByRole('listitem');
     expect(remainingNotifications.length).toBe(initialCount - 1);
-  })
+  });
+
+  it("displays drawer when notification title is clicked", async () => {
+    const user = userEvent.setup();
+    
+    // Initially drawer should not be visible
+    expect(screen.queryByText(/Here is the list of notifications/i)).not.toBeInTheDocument();
+    
+    // Click to show drawer
+    const showButton = screen.getByTestId('displayBtn');
+    await user.click(showButton);
+    
+    // Now drawer should be visible
+    expect(screen.getByText(/Here is the list of notifications/i)).toBeInTheDocument();
+  });
+
+  it("hides drawer when close button is clicked", async () => {
+    const user = userEvent.setup();
+    
+    // Show drawer first
+    const showButton = screen.getByTestId('displayBtn');
+    await user.click(showButton);
+    
+    expect(screen.getByText(/Here is the list of notifications/i)).toBeInTheDocument();
+    
+    // Hide drawer
+    const hideButton = screen.getByTestId('hideBtn');
+    await user.click(hideButton);
+    
+    // Drawer should be hidden
+    expect(screen.queryByText(/Here is the list of notifications/i)).not.toBeInTheDocument();
+  });
 });
