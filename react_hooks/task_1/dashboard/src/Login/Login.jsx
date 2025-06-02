@@ -47,7 +47,7 @@ const Login = ({ logIn }) => {
             ...prev,
             email: value
         }));
-        validate(value, password);
+        validate(value, formData.password);
     }
 
     const handleChangePassword = (value) => {
@@ -55,19 +55,19 @@ const Login = ({ logIn }) => {
             ...prev,
             password: value
         }));
-        validate(email, value);
+        validate(formData.email, value);
     }
 
-    const handleSubmit = (e) => {
+    const handleLoginSubmit = (e) => {
         e.preventDefault();
-        logIn(email, password);
+        logIn(formData.email, formData.password);
     };
 
     return (
         <div className={css(styles.body)}>
             <p>Login to access the full dashboard</p>
             <div className={css(styles.loginDiv)}>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleLoginSubmit}>
                     <span>
                         <label htmlFor="email">Email:</label>
                         <input
@@ -101,85 +101,5 @@ const Login = ({ logIn }) => {
         </div>
     );
 };
-
-// class Login extends Component {
-//     constructor(props) {
-//         super(props);
-
-//         this.state = {
-//             email: props.email || "",
-//             password: props.password || "",
-//             enableSubmit: false,
-//         };
-//     }
-
-//     handleChangeEmail = (value) => {
-//         this.setState({ email: value }, this.validate);
-//     };
-
-//     handleChangePassword = (value) => {
-//         this.setState({ password: value }, this.validate);
-//     };
-
-//     validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-//     validateForm = (email, password) =>
-//         email && this.validateEmail(email) && password && password.length >= 8;
-
-//     validate = () => {
-//         const { email, password } = this.state;
-//         const isValid = this.validateForm(email, password);
-//         this.setState({ enableSubmit: isValid });
-//     };
-
-//     handleSubmit = (e) => {
-//         e.preventDefault();
-//         const { logIn } = this.props;
-//         const { email, password } = this.state;
-//         logIn(email, password);
-//     };
-
-//     render() {
-//         const { email, password, enableSubmit } = this.state;
-
-//         return (
-//             <div className={css(styles.body)}>
-//                 <p>Login to access the full dashboard</p>
-//                 <div className={css(styles.loginDiv)}>
-//                     <form onSubmit={this.handleSubmit}>
-//                         <span>
-//                             <label htmlFor="email">Email:</label>
-//                             <input
-//                                 type="email"
-//                                 id="email"
-//                                 name="email"
-//                                 value={email}
-//                                 onChange={(e) => this.handleChangeEmail(e.target.value)}
-//                             />
-//                         </span>
-//                         <span>
-//                             <label htmlFor="password">Password:</label>
-//                             <input
-//                                 type="password"
-//                                 id="password"
-//                                 name="password"
-//                                 value={password}
-//                                 onChange={(e) => this.handleChangePassword(e.target.value)}
-//                             />
-//                         </span>
-//                         {enableSubmit && (
-//                             <input
-//                                 data-testid="submitBtn"
-//                                 type="submit"
-//                                 className={css(styles.btn)}
-//                                 value="OK"
-//                             />
-//                         )}
-//                     </form>
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
 
 export default Login;
