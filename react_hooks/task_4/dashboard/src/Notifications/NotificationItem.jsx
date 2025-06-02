@@ -41,7 +41,7 @@ const NotificationItem = React.memo(function NotificationItem({ id, type, value,
             <li
                 className={css(styleClass, styles.liClass)}
                 data-notification-type={type}
-                dangerouslySetInnerHTML={html}
+                dangerouslySetInnerHTML={{ __html: html }}
                 onClick={handleClick}
                 data-testid={`item${id}`}
             />
